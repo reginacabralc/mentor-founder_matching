@@ -31,77 +31,147 @@ CLUSTER_DESCRIPTIONS = {
     4: "Domain specialists — deep expertise in one vertical",
 }
 
-# ── Mentor database (60 mentors) ──────────────────────────────────────────────
+# ── Mentor database (150 mentors, 30 per archetype) ──────────────────────────
 MENTOR_NAMES = [
-    # Builders (0–11)
+    # Builders (0–29) — Tech + Product
     "Alejandro Ríos","Carolina Fuentes","Diego Salinas","Elena Vargas",
     "Fernanda Ibáñez","Gerardo Ochoa","Héctor Palma","Irene Castañeda",
     "Jorge Montes","Karen Zúñiga","Luis Espinoza","Mónica Prado",
-    # Connectors (12–23)
+    "Nicolás Herrera","Olivia Castillo","Pedro Aguilar","Renata Solis",
+    "Samuel Lara","Tamara Ibarra","Uriel Pedraza","Verónica Ángel",
+    "Axel Romero","Brenda Quiroga","Cristóbal Peña","Dafne Lozano",
+    "Esteban Varela","Flor Aguirre","Gonzalo Reyes","Ingrid Mora",
+    "Julio Pacheco","Katia Estrada",
+    # Connectors (30–59) — Marketing + Growth
     "Natalia Serrano","Omar Delgado","Patricia Leal","Quentin Bravo",
     "Raquel Soto","Santiago Ramos","Teresa Aguilar","Ulises Mora",
     "Valentina Reyes","Wendy Cabrera","Xavier Flores","Yolanda Peña",
-    # Operators (24–35)
+    "Adriana Vega","Bruno Salazar","Claudia Nava","Daniel Esqueda",
+    "Estefanía Ruiz","Felipe Montoya","Gisela Paredes","Hugo Téllez",
+    "Ilse Fuentes","Javier Cordero","Karla Bustamante","León Prieto",
+    "Marisol Tapia","Noel Barrios","Ofelia Cano","Patricio Leal",
+    "Querida Sosa","Rodrigo Mena",
+    # Operators (60–89) — Finance + Legal
     "Zoe Guerrero","Arturo Medina","Beatriz Ortega","César Navarro",
     "Daniela Rojas","Emilio Guzmán","Fabiola Torres","Gilberto Ángel",
     "Hana Cervantes","Iván Paredes","Julia Herrera","Kevin Blanco",
-    # Visionaries (36–47)
+    "Lorena Fuentes","Mauricio Rivas","Norma Espinoza","Octavio Leiva",
+    "Pilar Contreras","Quintín Aranda","Rosa Villanueva","Sergio Ponce",
+    "Talia Bravo","Ulises Campos","Valeria Nieto","Wilfrido Salinas",
+    "Xochitl Pedraza","Yésica Montiel","Zenón Aguirre","Amalia Cruz",
+    "Benjamín Olvera","Carmen Duarte",
+    # Visionaries (90–119) — Strategy + Leadership
     "Laura Mendoza","Marco Ruiz","Nora Vega","Pablo Jiménez",
     "Quintina Luna","Rodrigo Díaz","Sofía Romero","Tomás Acosta",
     "Ursula Ramírez","Víctor Cortés","Wendy Morales","Ximena López",
-    # Specialists (48–59)
+    "Andrés Peñaloza","Blanca Treviño","Carlos Alarcón","Diana Buendía",
+    "Eduardo Saavedra","Francisca Olea","Gustavo Naranjo","Helena Quiroz",
+    "Itzel Cabrera","Joaquín Espino","Kenji Watanabe","Lorenza Palma",
+    "Mateo Ibarra","Nicolette Vidal","Osvaldo Ferrán","Pamela Ugarte",
+    "Renato Solano","Sabrina Meza",
+    # Specialists (120–149) — Deep Domain Experts
     "Yael Sandoval","Zaira Contreras","Abel Hidalgo","Bárbara Esquivel",
     "Claudio Treviño","Dora Alvarado","Ernesto Bautista","Fanny Campos",
     "Gonzalo Ponce","Hortensia Meza","Ignacio Solís","Jimena Barrera",
+    "Karina Velasco","Leonardo Ibáñez","Margarita Flores","Néstor Gutiérrez",
+    "Olga Serrano","Rafael Zamora","Silvia Acosta","Tania Mendívil",
+    "Ulises Parra","Verónica Salcedo","Walther Núñez","Ximena Bernal",
+    "Yosef Mizrahi","Zulema Arce","Armando Cisneros","Belén Orozco",
+    "Ciro Valdés","Deborah Esparza",
 ]
 
 MENTOR_SECTORS = [
+    # Builders (30)
     "DeepTech","SaaS B2B","Fintech","HealthTech","DeepTech","SaaS B2B",
     "EdTech","IoT","DeepTech","SaaS B2B","CyberSec","Fintech",
+    "AI/ML","Robotics","SaaS B2B","DeepTech","HealthTech","EdTech","CyberSec","IoT",
+    "AI/ML","SaaS B2B","DeepTech","HealthTech","Robotics","CyberSec",
+    "IoT","Fintech","EdTech","DeepTech",
+    # Connectors (30)
     "E-commerce","Consumer App","Marketplace","D2C","E-commerce","Consumer App",
     "Creator Economy","Marketplace","Social Media","D2C","Consumer App","Marketplace",
+    "Influencer Mktg","Brand Strategy","D2C","Consumer App","E-commerce","Social Media",
+    "Community","Growth Hacking",
+    "Affiliate Mktg","Retention","Performance Mktg","D2C","Marketplace","Creator Economy",
+    "Social Media","Brand Strategy","E-commerce","Consumer App",
+    # Operators (30)
     "Fintech","Legal Tech","Fintech","Accounting","Legal Tech","Fintech",
     "Real Estate","Fintech","Legal Tech","Private Equity","Fintech","Legal Tech",
+    "CFO Advisory","Compliance","Tax & Audit","Fintech","Legal Tech","Private Equity",
+    "Accounting","Real Estate",
+    "M&A Advisory","Venture Debt","Legal Tech","Fintech","Compliance",
+    "Real Estate","Accounting","Private Equity","CFO Advisory","Legal Tech",
+    # Visionaries (30)
     "ClimaTech","AgriTech","ClimaTech","VC / Investing","Sustainability","VC / Investing",
     "AgriTech","ClimaTech","VC / Investing","Sustainability","AgriTech","ClimaTech",
+    "Future of Work","Smart Cities","VC / Investing","Sustainability","ClimaTech",
+    "AgriTech","Blue Economy","GovTech",
+    "Impact Investing","Circular Economy","VC / Investing","ClimaTech","Smart Cities",
+    "Sustainability","Future of Work","AgriTech","GovTech","Blue Economy",
+    # Specialists (30)
     "BioTech","BioTech","NanoTech","SpaceTech","BioTech","NanoTech",
     "SpaceTech","BioTech","NanoTech","SpaceTech","BioTech","NanoTech",
+    "Quantum Computing","Genomics","Materials Science","BioTech","SpaceTech",
+    "NanoTech","Synthetic Biology","Photonics",
+    "Neuroscience","Proteomics","SpaceTech","Quantum Computing","BioTech",
+    "NanoTech","Materials Science","Genomics","Photonics","Synthetic Biology",
 ]
 
 MENTOR_STAGES = [
+    # Builders (30)
     "Series A","Series B","Seed","Series A","Series B","Series A",
     "Seed","Series B","Series A","Series B","Seed","Series A",
+    "Growth","Series B","Seed","Series A","Series B","Growth","Seed","Series A",
+    "Series A","Seed","Series B","Growth","Series A","Seed",
+    "Series B","Series A","Growth","Seed",
+    # Connectors (30)
     "Growth","Series A","Growth","Seed","Series A","Growth",
     "Seed","Series A","Growth","Seed","Series A","Growth",
+    "Series B","Growth","Seed","Series A","Growth","Series B","Seed","Series A",
+    "Growth","Seed","Series A","Series B","Growth","Seed",
+    "Series A","Growth","Series B","Seed",
+    # Operators (30)
     "Series B","Series A","Series B","Series A","Series B","Series A",
     "Growth","Series B","Series A","Series B","Series A","Series B",
+    "Growth","Series A","Series B","Growth","Series A","Series B","Growth","Series A",
+    "Series B","Growth","Series A","Series B","Growth",
+    "Series A","Series B","Growth","Series A","Series B",
+    # Visionaries (30)
     "Series B","Growth","Series B","Growth","Series B","Growth",
     "Series B","Growth","Series B","Growth","Series B","Growth",
+    "Series A","Series B","Growth","Series B","Growth","Series A","Series B","Growth",
+    "Series B","Growth","Series A","Growth","Series B",
+    "Growth","Series A","Series B","Growth","Series B",
+    # Specialists (30)
     "Pre-seed","Seed","Pre-seed","Seed","Pre-seed","Seed",
     "Pre-seed","Seed","Pre-seed","Seed","Pre-seed","Seed",
+    "Series A","Pre-seed","Seed","Pre-seed","Seed","Series A","Pre-seed","Seed",
+    "Pre-seed","Seed","Series A","Pre-seed","Seed",
+    "Pre-seed","Seed","Series A","Pre-seed","Seed",
 ]
 
-# ── Skill matrix with archetype biases  [Tech, Mktg, Legal, Finance, Strategy]
+# ── Skill matrix — strong archetype separation so PCA/KMeans cluster cleanly ──
 rng = np.random.default_rng(42)
-N = 60
-MENTOR_MATRIX = rng.integers(3, 8, size=(N, 5)).astype(float)
+N = 150
 
-boosts = {
-    0: [3, 0, 0, 0, 2],
-    1: [0, 3, 0, 0, 2],
-    2: [0, 0, 3, 3, 0],
-    3: [1, 1, 1, 1, 3],
-    4: [2, 0, 0, 0, 0],
+ARCHETYPE_CENTERS = {
+    0: [8, 3, 3, 3, 6],   # Builders   — high Tech, moderate Strategy
+    1: [3, 8, 3, 3, 6],   # Connectors — high Marketing, moderate Strategy
+    2: [3, 3, 8, 8, 3],   # Operators  — high Legal & Finance
+    3: [5, 5, 5, 5, 8],   # Visionaries— high Strategy, balanced rest
+    4: [7, 3, 3, 3, 3],   # Specialists— high Tech, lower everything else
 }
-archetype_ranges = {0: range(0,12), 1: range(12,24), 2: range(24,36),
-                    3: range(36,48), 4: range(48,60)}
+archetype_ranges = {0: range(0,30), 1: range(30,60), 2: range(60,90),
+                    3: range(90,120), 4: range(120,150)}
 
+MENTOR_MATRIX = np.zeros((N, 5))
 for archetype, rows in archetype_ranges.items():
-    for col, boost in enumerate(boosts[archetype]):
-        if boost:
-            MENTOR_MATRIX[list(rows), col] += rng.integers(1, boost + 1, size=12)
+    center = np.array(ARCHETYPE_CENTERS[archetype], dtype=float)
+    for i in list(rows):
+        noise = rng.uniform(-2.0, 2.0, size=5)
+        MENTOR_MATRIX[i] = np.clip(center + noise, 1, 10)
 
-MENTOR_MATRIX = np.clip(MENTOR_MATRIX, 1, 10)
+MENTOR_MATRIX = MENTOR_MATRIX.astype(float)
 FEATURES = ["Tech", "Marketing", "Legal", "Finance", "Strategy"]
 
 
@@ -115,7 +185,7 @@ class FounderProfile(BaseModel):
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
-ARCHETYPE_PER_MENTOR = [i // 12 for i in range(N)]
+ARCHETYPE_PER_MENTOR = [i // 30 for i in range(N)]
 
 
 def resolve_cluster_names(cluster_labels, k):
@@ -156,14 +226,63 @@ def match_founder(founder: FounderProfile):
 
     cluster_name_map, cluster_desc_map = resolve_cluster_names(cluster_labels, k)
 
-    distances = np.linalg.norm(mentor_coords - founder_coord, axis=1)
-    best_idx  = int(np.argmin(distances))
-    top3_idx  = np.argsort(distances)[:3].tolist()
+    # ── Matching: complementary within a PCA neighborhood ────────────────────
+    # Step 1: compute PCA distances and keep top 40% closest mentors (neighborhood)
+    # Step 2: within that pool, find who best fills the founder's skill gaps
+    #
+    # This guarantees the match is visually close on the scatter AND complementary.
+
+    pca_dist = np.linalg.norm(mentor_coords - founder_coord, axis=1)
+
+    # Neighborhood = closest 40 mentors by PCA distance (40% of 100)
+    neighborhood_size = max(20, N // 3)
+    neighborhood_idx  = np.argsort(pca_dist)[:neighborhood_size]
+
+    # Complementarity target: where founder is weak, mentor should be strong
+    complement_target = 10.0 - founder_vec
+
+    # Among neighborhood, find most complementary
+    comp_dist_all = np.linalg.norm(MENTOR_MATRIX - complement_target, axis=1)
+    comp_dist_neighborhood = comp_dist_all[neighborhood_idx]
+    best_local = int(np.argmin(comp_dist_neighborhood))
+    best_idx   = int(neighborhood_idx[best_local])
+    top3_idx   = [int(neighborhood_idx[i])
+                  for i in np.argsort(comp_dist_neighborhood)[:3]]
+
+    # ── Confidence ellipses per K-Means cluster (2-sigma) ────────────────────
+    ellipses = []
+    for c in range(k):
+        pts = mentor_coords[np.array(cluster_labels) == c]
+        if len(pts) < 3:
+            continue
+        mu  = pts.mean(axis=0)
+        cov = np.cov(pts.T)
+        # eigen decomposition → semi-axes and angle
+        vals, vecs = np.linalg.eigh(cov)
+        vals = np.abs(vals)
+        order = np.argsort(vals)[::-1]
+        vals, vecs = vals[order], vecs[:, order]
+        # 2-sigma scale (≈95% of points)
+        a, b  = 2 * np.sqrt(vals[0]), 2 * np.sqrt(vals[1])
+        angle = float(np.degrees(np.arctan2(vecs[1, 0], vecs[0, 0])))
+        # parametric ellipse path (100 pts)
+        t   = np.linspace(0, 2 * np.pi, 100)
+        ex  = a * np.cos(t)
+        ey  = b * np.sin(t)
+        ca, sa = np.cos(np.radians(angle)), np.sin(np.radians(angle))
+        rx  = (ca * ex - sa * ey + mu[0]).tolist()
+        ry  = (sa * ex + ca * ey + mu[1]).tolist()
+        ellipses.append({
+            "cluster": c,
+            "cluster_name": cluster_name_map[c],
+            "x": rx, "y": ry,
+            "cx": float(mu[0]), "cy": float(mu[1]),
+        })
 
     mentors_payload = []
     for i in range(N):
         c = cluster_labels[i]
-        archetype_id = ARCHETYPE_PER_MENTOR[i]          # fixed, based on dataset design
+        archetype_id = ARCHETYPE_PER_MENTOR[i]
         mentors_payload.append({
             "id": i,
             "name": MENTOR_NAMES[i],
@@ -173,9 +292,10 @@ def match_founder(founder: FounderProfile):
             "y": float(mentor_coords[i, 1]),
             "cluster": c,
             "cluster_name": cluster_name_map[c],
-            "archetype": archetype_id,                   # 0‒4, always stable
+            "archetype": archetype_id,
             "archetype_name": CLUSTER_NAMES[archetype_id],
-            "distance": float(distances[i]),
+            "distance": float(comp_dist_all[i]),      # complementarity score
+            "pca_distance": float(pca_dist[i]),       # PCA distance for scatter
             "scores": {f: float(MENTOR_MATRIX[i, j]) for j, f in enumerate(FEATURES)},
         })
 
@@ -194,6 +314,7 @@ def match_founder(founder: FounderProfile):
         "n_clusters": k,
         "cluster_names": cluster_name_map,
         "cluster_descriptions": cluster_desc_map,
+        "ellipses": ellipses,
         "feature_names": FEATURES,
         "n_mentors": N,
     }

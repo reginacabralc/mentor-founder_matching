@@ -210,14 +210,15 @@ hr { border: none; border-top: 1px solid #E8E6E1 !important; margin: 1.2rem 0 !i
 
 /* ── Sidebar logo zone ── */
 .sidebar-logo {
-    background: #1A1A18;
+    background: #F0EDE8;
+    border-bottom: 1px solid #E0DDD8;
     margin: -1rem -1rem 1.5rem -1rem;
     padding: 24px 24px 20px 24px;
 }
 .sidebar-logo .logo-text {
     font-family: 'DM Serif Display', serif;
     font-size: 1.4rem;
-    color: #FAFAF8;
+    color: #1A1A18;
     margin: 0;
     font-weight: 400;
 }
@@ -340,7 +341,7 @@ st.markdown("""
 <div class='page-header'>
     <p class='page-eyebrow'>EPIC Lab · ITAM · MAD Fellows 2026</p>
     <h1 class='page-title'>Mentor <em>Match</em> Engine</h1>
-    <p class='page-sub'>PCA + K-Means sobre 60 mentores · Encuentra al mentor que más te complementa</p>
+    <p class='page-sub'>PCA + K-Means sobre 100 mentores · Encuentra al mentor que más te complementa</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -381,13 +382,13 @@ m1.metric("Mentores en base", str(data.get("n_mentors", len(mentors))))
 m2.metric("Arquetipos (k)", str(n_clusters))
 m3.metric("Varianza PC1", f"{explained[0]}%")
 m4.metric("Varianza PC2", f"{explained[1]}%")
-m5.metric("Distancia al match", f"{best['distance']:.2f}")
+m5.metric("Match score", f"{max(0, round(100 - best['distance'] * 6.5))}%")
 
 st.markdown("<div style='margin:28px 0 0 0;'></div>", unsafe_allow_html=True)
 
 # ── Cluster legend ─────────────────────────────────────────────────────────────
 unique_names = list(dict.fromkeys(
-    [m.get("archetype_name", m.get("cluster_name", "—")) for m in mentors]
+    [cluster_names.get(str(m["cluster"]), cluster_names.get(m["cluster"], f"Cluster {m['cluster']+1}")) for m in mentors]
 ))
 pills_html = "<span class='legend-label'>Arquetipos</span>"
 for name in unique_names:
@@ -404,35 +405,67 @@ col_chart, col_match = st.columns([13, 7], gap="large")
 
 # ── PCA scatter ───────────────────────────────────────────────────────────────
 with col_chart:
-    st.markdown("<p class='section-title'>Espacio de similitud — 60 mentores</p>", unsafe_allow_html=True)
+    st.markdown("<p class='section-title'>Espacio de similitud — 100 mentores</p>", unsafe_allow_html=True)
     st.markdown("<p style='font-size:0.8rem;color:#9B9B8F;margin:-8px 0 14px;'>Cada punto es un mentor proyectado en 2D mediante PCA. El diamante rojo eres tú. La línea conecta con tu mejor match.</p>", unsafe_allow_html=True)
 
     fig = go.Figure()
 
-    # Color by FIXED archetype (not K-Means cluster) → guaranteed spatial grouping
+    # ── 1. Confidence ellipses (drawn first, behind points) ───────────────────
+    ellipses = data.get("ellipses", [])
+
+    def hex_to_rgba(hex_color, alpha):
+        """Convert #RRGGBB to rgba(r,g,b,alpha) for Plotly."""
+        h = hex_color.lstrip("#")
+        r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+        return f"rgba({r},{g},{b},{alpha})"
+
+    for ell in ellipses:
+        c_name = ell["cluster_name"]
+        color  = CLUSTER_PALETTE.get(c_name, DEFAULT_COLORS[ell["cluster"] % len(DEFAULT_COLORS)])
+        fig.add_trace(go.Scatter(
+            x=ell["x"] + [ell["x"][0]],
+            y=ell["y"] + [ell["y"][0]],
+            mode="lines",
+            fill="toself",
+            fillcolor=hex_to_rgba(color, 0.08),
+            line=dict(color=hex_to_rgba(color, 0.55), width=1.5, dash="dot"),
+            hoverinfo="skip",
+            showlegend=False,
+        ))
+        fig.add_trace(go.Scatter(
+            x=[ell["cx"]], y=[ell["cy"]],
+            mode="text",
+            text=[f"<b>{c_name}</b>"],
+            textfont=dict(size=10, color=color, family="DM Sans"),
+            hoverinfo="skip",
+            showlegend=False,
+        ))
+
+    # ── 2. Color by cluster (K-Means) — ellipses make grouping clear ──────────
     clusters_drawn = {}
     for m in mentors:
-        a_name = m.get("archetype_name", m.get("cluster_name", "—"))
-        color  = CLUSTER_PALETTE.get(a_name, DEFAULT_COLORS[m["archetype"] % len(DEFAULT_COLORS)])
+        c_id   = m["cluster"]
+        c_name = cluster_names.get(str(c_id), cluster_names.get(c_id, f"Cluster {c_id+1}"))
+        color  = CLUSTER_PALETTE.get(c_name, DEFAULT_COLORS[c_id % len(DEFAULT_COLORS)])
 
-        if a_name not in clusters_drawn:
-            clusters_drawn[a_name] = {"x":[], "y":[], "hover":[], "sizes":[], "symbols":[], "opacities":[], "color": color}
+        if c_name not in clusters_drawn:
+            clusters_drawn[c_name] = {"x":[], "y":[], "hover":[], "sizes":[], "symbols":[], "opacities":[], "color": color}
 
         is_best = m["id"] == best_idx
         is_top3 = m["id"] in top3
 
-        clusters_drawn[a_name]["x"].append(m["x"])
-        clusters_drawn[a_name]["y"].append(m["y"])
-        clusters_drawn[a_name]["hover"].append(
+        clusters_drawn[c_name]["x"].append(m["x"])
+        clusters_drawn[c_name]["y"].append(m["y"])
+        clusters_drawn[c_name]["hover"].append(
             f"<b style='font-size:14px'>{m['name']}</b><br>"
-            f"<span style='color:#666'>{a_name} · {m['sector']} · {m['stage']}</span><br><br>"
+            f"<span style='color:#666'>{c_name} · {m['sector']} · {m['stage']}</span><br><br>"
             f"Tech {m['scores']['Tech']:.0f}  ·  Mktg {m['scores']['Marketing']:.0f}  ·  "
             f"Fin {m['scores']['Finance']:.0f}  ·  Strat {m['scores']['Strategy']:.0f}<br>"
-            f"<b>Distancia al founder: {m['distance']:.3f}</b>"
+            f"<b>Match score: {max(0, round(100 - m['distance'] * 6.5))}%</b>"
         )
-        clusters_drawn[a_name]["sizes"].append(18 if is_best else (14 if is_top3 else 9))
-        clusters_drawn[a_name]["symbols"].append("star" if is_best else "circle")
-        clusters_drawn[a_name]["opacities"].append(1.0 if is_best or is_top3 else 0.65)
+        clusters_drawn[c_name]["sizes"].append(18 if is_best else (14 if is_top3 else 9))
+        clusters_drawn[c_name]["symbols"].append("star" if is_best else "circle")
+        clusters_drawn[c_name]["opacities"].append(1.0 if is_best or is_top3 else 0.65)
 
     for c_name, d in clusters_drawn.items():
         fig.add_trace(go.Scatter(
@@ -556,7 +589,7 @@ with col_chart:
 
 # ── Match panel ───────────────────────────────────────────────────────────────
 with col_match:
-    best_cluster_name = best.get("archetype_name", best.get("cluster_name", "—"))
+    best_cluster_name = cluster_names.get(str(best["cluster"]), cluster_names.get(best["cluster"], "—"))
 
 
     cluster_color = CLUSTER_PALETTE.get(best_cluster_name, "#059669")
@@ -583,7 +616,7 @@ with col_match:
             <span class='stat-chip'>Fin {best['scores']['Finance']:.0f}/10</span>
         </div>
         <p style='margin-top:12px;font-size:0.75rem;color:#B0AFA8;'>
-            Distancia PCA <b style='color:{cluster_color};'>{best['distance']:.3f}</b>
+            Match score <b style='color:{cluster_color};font-size:1rem;'>{max(0, round(100 - best['distance'] * 6.5))}%</b>
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -613,7 +646,7 @@ with col_match:
         if idx == best_idx:
             continue
         m = mentors[idx]
-        m_cname = m.get("archetype_name", m.get("cluster_name", "—"))
+        m_cname = cluster_names.get(str(m["cluster"]), cluster_names.get(m["cluster"], "—"))
         m_color = CLUSTER_PALETTE.get(m_cname, "#2563EB")
         st.markdown(f"""
         <div class='runner-card'>
@@ -626,7 +659,7 @@ with col_match:
                 {m['sector']} · {m['stage']}
             </p>
             <p class='runner-meta' style='margin-top:5px;'>
-                Distancia <b style='color:{m_color};'>{m['distance']:.3f}</b>
+                Match <b style='color:{m_color};'>{max(0, round(100 - m['distance'] * 6.5))}%</b>
             </p>
         </div>
         """, unsafe_allow_html=True)
@@ -636,7 +669,7 @@ with col_match:
     steps = [
         ("StandardScaler", "Normaliza las 5 dimensiones a media 0 y std 1 para evitar sesgos de escala."),
         ("PCA", "Reduce el espacio a 2 componentes principales para visualización e interpretación."),
-        ("K-Means", "Agrupa los 60 mentores en arquetipos por similitud de habilidades."),
+        ("K-Means", "Agrupa los 100 mentores en arquetipos por similitud de habilidades."),
         ("Distancia euclidiana", "Mide la cercanía entre tu perfil y cada mentor en el espacio 2D."),
     ]
     for i, (title, desc) in enumerate(steps, 1):
