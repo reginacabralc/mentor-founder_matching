@@ -17,6 +17,25 @@ Esta plataforma automatiza el matching usando ciencia de datos, reduciendo el ti
 
 ---
 
+## Instalación y uso (2 minutos)
+
+```bash
+# 1. Instalar dependencias
+pip install -r requirements.txt
+
+# 2. Terminal A — backend
+uvicorn main:app --reload --port 8000
+
+# 3. Terminal B — frontend
+streamlit run app.py
+```
+
+La app abre en **http://localhost:8501**
+
+Verifica que el backend responde en: `http://localhost:8000/health`
+
+---
+
 ## Cómo funciona (el algoritmo)
 
 ```
@@ -54,25 +73,6 @@ Perfil del Founder (5 dimensiones)
 | ML         | PCA, K-Means, StandardScaler        |
 | Frontend   | Streamlit + Plotly (Scatter, Radar) |
 | Datos      | Dataset sintético de 60 mentores    |
-
----
-
-## Instalación y uso (2 minutos)
-
-```bash
-# 1. Instalar dependencias
-pip install -r requirements.txt
-
-# 2. Terminal A — backend
-uvicorn main:app --reload --port 8000
-
-# 3. Terminal B — frontend
-streamlit run app.py
-```
-
-La app abre en **http://localhost:8501**
-
-Verifica que el backend responde en: `http://localhost:8000/health`
 
 ---
 
